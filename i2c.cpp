@@ -22,15 +22,15 @@ void printByteArray(const byte* array, size_t length) {
 }
 
 
-float *readFloatFromI2C(int fileDescriptor) {
+float *readFloatFromI2C(int fileDescriptor, uint8_t numberOfVariables) {
   // Allocate memory dynamically for two floats
-  float *value = (float *)malloc(2 * sizeof(float));
+  float *value = (float *)malloc(numberOfVariables * sizeof(float));
   if (value == NULL) {
     return NULL;
   }
 
   // Create a buffer to hold 8 bytes
-  byte buffer[8];
+  byte buffer[numberOfVariables*4];
 
   // Read bytes into buffer from the I2C device
   read(fileDescriptor, buffer, sizeof(buffer));
