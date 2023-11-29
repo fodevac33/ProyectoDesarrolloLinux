@@ -24,7 +24,7 @@ void printByteArray(const byte* array, size_t length) {
 
 float readFloatFromI2C(int fileDescriptor) {
   float value;
-  byte buffer[sizeof(value*2)];
+  byte buffer[sizeof(value)*2];
 
   int buffer_size = sizeof(buffer) / sizeof(byte);
 
