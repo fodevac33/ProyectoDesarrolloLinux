@@ -6,37 +6,44 @@
 
 #define DEVICE_ID 0x08
 
-// Function to read a float from I2C
-float readFloatFromI2C(int fd) {
-    float value;
-    char buffer[sizeof(value)];
+typedef uint8_t byte;
 
-    // Read bytes into buffer
-    read(fd, buffer, sizeof(buffer));
+void printByteArray(const byte* array, size_t length) {
+    for (size_t i = 0; i < length; ++i) {
+        printf("%02X ", array[i]);
+    }
+    printf("\n");
+}
 
-    // Copy the buffer into a float
-    memcpy(&value, buffer, sizeof(buffer));
 
-    return value;
+float readFloatFromI2C(int fileDescriptor) {
+  float value;
+  byte buffer[sizeof(value)];
+
+  // Read bytes into buffer
+  read(fileDescriptor, buffer, sizeof(buffer));
+
+  // Copy the buffer into a float
+  memcpy(&value, buffer, sizeof(buffer));
+
+  return value;
 }
 
 int main(int argc, char **argv) {
-    // Setup I2C communication
-    int fd = wiringPiI2CSetup(DEVICE_ID);
-    if (fd == -1) {
-        std::cout << "Failed to init I2C communication.\n";
-        return -1;
-    }
-    std::cout << "I2C communication has been successfully setup.\n";
+  int fileDescriptor = wiringPiI2CSetup(DEVICE_ID);
+  if (fileDescriptor == -1) {
+      std::cout << "Failed to init I2C communication.\n";
+      return -1;
+  }
+  std::cout << "I2C communication has been successfully setup.\n";
 
-    // Assume the Arduino sends humidity first, then temperature
-    float humidity = readFloatFromI2C(fd);
-    float temperature = readFloatFromI2C(fd);
+  float humidity = readFloatFromI2C(fileDescriptor);
+  float temperature = readFloatFromI2C(fileDescriptor);
 
-    std::cout << "Data received: \n";
-    std::cout << "Humidity: " << humidity << "%\n";
-    std::cout << "Temperature: " << temperature << " °C\n";
+  std::cout << "Data received: \n";
+  std::cout << "Humidity: " << humidity << "%\n";
+  std::cout << "Temperature: " << temperature << " °C\n";
 
-    return 0;
+  return 0;
 }
 
