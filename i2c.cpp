@@ -10,10 +10,7 @@ typedef uint8_t byte;
 
 void printByteArray(const byte* array, size_t length) {
     for (size_t i = 0; i < length; ++i) {
-        // Output each byte as a hexadecimal number.
-        // Use the stream manipulators hex and nouppercase to format the output.
         std::cout << std::hex << std::nouppercase;
-        // Cast to unsigned int and output as hexadecimal.
         std::cout << (array[i] >> 4);  // Print the high nibble.
         std::cout << (array[i] & 0x0F); // Print the low nibble.
         std::cout << ' ';  // Separator space.
