@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
   float temperature = i2cArray[0];
   float humidity = i2cArray[1];
 
-  std::cout << "Data received: \n";
+  std::cout << "Data: \n";
   std::cout << "Humidity: " << humidity << "%\n";
   std::cout << "Temperature: " << temperature << " °C\n";
 
