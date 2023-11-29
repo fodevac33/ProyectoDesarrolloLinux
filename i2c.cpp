@@ -61,6 +61,8 @@ int main(int argc, char **argv) {
   std::cout << "Humidity: " << humidity << "%\n";
   std::cout << "Temperature: " << temperature << " °C\n";
 
+  free(i2cArray);
+
   return 0;
 }
 
