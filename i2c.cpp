@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
   }
   std::cout << "I2C communication has been successfully setup.\n";
 
-  float* i2cArray = readFloatFromI2C(fileDescriptor);
+  float* i2cArray = readFloatFromI2C(fileDescriptor, 2);
   float temperature = i2cArray[0];
   float humidity = i2cArray[1];
 
