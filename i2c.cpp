@@ -23,7 +23,7 @@ void printByteArray(const byte* array, size_t length) {
 
 
 float readFloatFromI2C(int fileDescriptor) {
-  float value;
+  float value[2];
   byte buffer[sizeof(value)*2];
 
   int buffer_size = sizeof(buffer) / sizeof(byte);
@@ -48,8 +48,9 @@ int main(int argc, char **argv) {
   }
   std::cout << "I2C communication has been successfully setup.\n";
 
-  float humidity = readFloatFromI2C(fileDescriptor);
-  float temperature = readFloatFromI2C(fileDescriptor);
+  float i2cArray = readFloatFromI2C(fileDescriptor);
+  float temperature = i2cArray[0];
+  float humidity = i2cArray[1];
 
   std::cout << "Data received: \n";
   std::cout << "Humidity: " << humidity << "%\n";
