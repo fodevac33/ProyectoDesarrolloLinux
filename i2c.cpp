@@ -23,20 +23,25 @@ void printByteArray(const byte* array, size_t length) {
 
 
 float *readFloatFromI2C(int fileDescriptor) {
-  float value[2];
-  byte buffer[sizeof(value)*2];
+  // Allocate memory dynamically for two floats
+  float *value = (float *)malloc(2 * sizeof(float));
+  if (value == NULL) {
+    return NULL;
+  }
 
-  int buffer_size = sizeof(buffer) / sizeof(byte);
+  // Create a buffer to hold 8 bytes
+  byte buffer[8];
 
-  // Read bytes into buffer
+  // Read bytes into buffer from the I2C device
   read(fileDescriptor, buffer, sizeof(buffer));
 
+  // Print the buffer contents
+  printByteArray(buffer, sizeof(buffer));
 
-  printByteArray(buffer, buffer_size);
+  // Copy the buffer into the float array
+  memcpy(value, buffer, sizeof(buffer));
 
-  // Copy the buffer into a float
-  memcpy(&value, buffer, sizeof(buffer));
-
+  // Return the pointer to the dynamically allocated floats
   return value;
 }
 
