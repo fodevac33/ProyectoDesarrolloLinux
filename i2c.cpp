@@ -50,13 +50,17 @@ int main(int argc, char **argv) {
   }
   std::cout << "I2C communication has been successfully setup.\n";
 
-  float* i2cArray = readFloatFromI2C(fileDescriptor, 2);
+  float* i2cArray = readFloatFromI2C(fileDescriptor, 4);
   float temperature = i2cArray[0];
-  float humidity = i2cArray[1];
+  float termistor = i2cArray[1];
+  float latitud = i2cArray[2];
+  float longitud = i2cArray[3];
 
   std::cout << "Data: \n";
-  std::cout << "Humidity: " << humidity << "%\n";
+  std::cout << "Termistor: " << termistor << "°C\n";
   std::cout << "Temperature: " << temperature << " °C\n";
+  std::cout << "Latitud: " << latitud << " \n";
+  std::cout << "Longitud: " << longitud << " \n";
 
   free(i2cArray);
 
