@@ -10,17 +10,6 @@
 
 typedef uint8_t byte;
 
-void printByteArray(const byte* array, size_t length) {
-    for (size_t i = 0; i < length; ++i) {
-        std::cout << std::hex << std::nouppercase;
-        std::cout << (array[i] >> 4); 
-        std::cout << (array[i] & 0x0F); 
-        std::cout << ' '; 
-    }
-    std::cout << std::dec << std::endl; 
-}
-
-
 float *readFloatFromI2C(int fileDescriptor, uint8_t numberOfVariables) {
   // Allocate memory dynamically for two floats
   float *value = (float *)malloc(numberOfVariables * sizeof(float));
@@ -44,25 +33,12 @@ float *readFloatFromI2C(int fileDescriptor, uint8_t numberOfVariables) {
   return value;
 }
 
-int main(int argc, char **argv) {
-  int fileDescriptor = wiringPiI2CSetup(DEVICE_ID);
-  if (fileDescriptor == -1) {
-      std::cout << "Failed to init I2C communication.\n";
-      return -1;
-  }
-  std::cout << "I2C communication has been successfully setup.\n";
-
+void postI2CData () {
   float* i2cArray = readFloatFromI2C(fileDescriptor, 4);
   float temperature = i2cArray[0];
   float termistor = i2cArray[1];
   float latitud = i2cArray[2];
   float longitud = i2cArray[3];
-
-  std::cout << "Data: \n";
-  std::cout << "Termistor: " << termistor << "°C\n";
-  std::cout << "Temperature: " << temperature << " °C\n";
-  std::cout << "Latitud: " << latitud << " \n";
-  std::cout << "Longitud: " << longitud << " \n";
 
   std::ostringstream stream;
   stream << "{\"ambientTemp\": " << termistor 
@@ -86,6 +62,18 @@ int main(int argc, char **argv) {
     std::cerr << "Request failed, error: " << e.what() << '\n';
   }
   free(i2cArray);
+}
+
+
+int main(int argc, char **argv) {
+  int fileDescriptor = wiringPiI2CSetup(DEVICE_ID);
+  if (fileDescriptor == -1) {
+      std::cout << "Failed to init I2C communication.\n";
+      return -1;
+  }
+  std::cout << "I2C communication has been successfully setup.\n";
+
+  postI2CData();
 
   return 0;
 }
