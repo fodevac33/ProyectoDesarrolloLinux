@@ -2,11 +2,16 @@
     import { type TableSource, Table } from "@skeletonlabs/skeleton";
     import { tableMapperValues } from "@skeletonlabs/skeleton";
 
+    export let ambientTemp;
+    export let motorTemp;
+    export let latitude;
+    export let longitude;
+
     const tableData = [
-        {position: 1, dato: "Temp Ambiente", valor: 31.3 },
-        {position: 1, dato: "Temp Motor", valor: 51.8 },
-        {position: 1, dato: "Latitud", valor: 5.3231},
-        {position: 1, dato: "Longitud", valor: -71.3123 },
+        {position: 1, dato: "Temp Ambiente", valor: ambientTemp },
+        {position: 1, dato: "Temp Motor", valor: motorTemp },
+        {position: 1, dato: "Latitud", valor: latitude},
+        {position: 1, dato: "Longitud", valor: longitude },
     ]
 
 

@@ -30,8 +30,8 @@ float *readFloatFromI2C(int fileDescriptor, uint8_t numberOfVariables) {
   return value;
 }
 
-void postI2CData (int *fd) {
-  float* i2cArray = readFloatFromI2C(*fd, 4);
+void postI2CData (int *i2cfd) {
+  float* i2cArray = readFloatFromI2C(*i2cfd, 4);
   float temperature = i2cArray[0];
   float termistor = i2cArray[1];
   float latitud = i2cArray[2];
@@ -46,7 +46,7 @@ void postI2CData (int *fd) {
   try
   {
     std::cout << "Json: " << stream.str() << "\n";
-    http::Request request{"http://192.168.171.241:3333/api"};
+    http::Request request{"http://192.168.171.241:3333/api/new"};
     const std::string body = stream.str();
     const auto response = request.send("POST", body, {
       {"Content-Type", "application/json"}

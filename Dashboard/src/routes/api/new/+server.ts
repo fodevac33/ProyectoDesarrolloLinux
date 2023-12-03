@@ -1,6 +1,6 @@
 import type { RequestHandler } from './$types';
 import type { i2cData } from '$lib/types';
-import prisma from '$lib/primsa';
+import { prisma } from '$lib/primsa';
 
 export const POST: RequestHandler = async ({request}) => {
     const data = await request.json() as i2cData;    
