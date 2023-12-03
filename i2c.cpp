@@ -38,8 +38,8 @@ void postI2CData (int *fd) {
   float longitud = i2cArray[3];
 
   std::ostringstream stream;
-  stream << "{\"ambientTemp\": " << termistor 
-          << ", \"motorTemp\": " << temperature 
+  stream << "{\"ambientTemp\": " << temperature
+          << ", \"motorTemp\": " << termistor 
           << ", \"latitude\": " << latitud
           << ", \"longitude\": " << longitud << "}";
 
