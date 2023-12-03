@@ -72,17 +72,17 @@ int main(int argc, char **argv) {
 
   try
   {
-      http::Request request{"localhost:5173/api"};
-      std::cout << "Json: " << stream.str() << " \n";
-      const std::string body = stream.str();
-      const auto response = request.send("POST", body, {
-          {"Content-Type", "application/json"}
-      });
-      std::cout << std::string{response.body.begin(), response.body.end()} << '\n'; // print the result
+    std::cout << "Json: " << stream.str() << "\n";
+    http::Request request{"localhost:5173/api"};
+    const std::string body = stream.str();
+    const auto response = request.send("POST", body, {
+      {"Content-Type", "application/json"}
+    });
+    std::cout << std::string{response.body.begin(), response.body.end()} << '\n'; // print the result
   }
   catch (const std::exception& e) 
   {
-      std::cerr << "Request failed, error: " << e.what() << '\n';
+    std::cerr << "Request failed, error: " << e.what() << '\n';
   }
   free(i2cArray);
 
