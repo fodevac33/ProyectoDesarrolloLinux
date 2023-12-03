@@ -23,9 +23,6 @@ float *readFloatFromI2C(int fileDescriptor, uint8_t numberOfVariables) {
   // Read bytes into buffer from the I2C device
   read(fileDescriptor, buffer, sizeof(buffer));
 
-  // Print the buffer contents
-  printByteArray(buffer, sizeof(buffer));
-
   // Copy the buffer into the float array
   memcpy(value, buffer, sizeof(buffer));
 
