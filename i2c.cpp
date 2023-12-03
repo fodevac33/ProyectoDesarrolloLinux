@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <cstring>
 #include <sstream>
+#include <chrono>
+#include <thread>
 #include "HTTPRequest.hpp"
 
 #define DEVICE_ID 0x08
@@ -70,8 +72,11 @@ int main(int argc, char **argv) {
   }
   std::cout << "I2C communication has been successfully setup.\n";
 
-  postI2CData(&fileDescriptor);
-
+  while (true) {
+    postI2CData(&fileDescriptor);
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+  }
+  
   return 0;
 }
 
