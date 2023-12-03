@@ -33,8 +33,8 @@ float *readFloatFromI2C(int fileDescriptor, uint8_t numberOfVariables) {
   return value;
 }
 
-void postI2CData () {
-  float* i2cArray = readFloatFromI2C(fileDescriptor, 4);
+void postI2CData (int *fd) {
+  float* i2cArray = readFloatFromI2C(*fd, 4);
   float temperature = i2cArray[0];
   float termistor = i2cArray[1];
   float latitud = i2cArray[2];
@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
   }
   std::cout << "I2C communication has been successfully setup.\n";
 
-  postI2CData();
+  postI2CData(&fileDescriptor);
 
   return 0;
 }
