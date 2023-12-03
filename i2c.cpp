@@ -78,6 +78,7 @@ int main(int argc, char **argv) {
     const auto response = request.send("POST", body, {
       {"Content-Type", "application/json"}
     });
+    std::cout << "Request Sent" << "\n";
     std::cout << std::string{response.body.begin(), response.body.end()} << '\n'; // print the result
   }
   catch (const std::exception& e) 
