@@ -65,10 +65,10 @@ int main(int argc, char **argv) {
   std::cout << "Longitud: " << longitud << " \n";
 
   std::ostringstream stream;
-  stream << "{\"ambientTemp\": " << ambientTemp 
-          << ", \"motorTemp\": " << motorTemp 
-          << ", \"latitude\": " << latitude 
-          << ", \"longitude\": " << longitude << "}";
+  stream << "{\"ambientTemp\": " << termistor 
+          << ", \"motorTemp\": " << temperature 
+          << ", \"latitude\": " << latitud
+          << ", \"longitude\": " << longitud << "}";
 
   try
   {
