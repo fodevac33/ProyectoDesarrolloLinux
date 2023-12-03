@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <unistd.h>
 #include <cstring>
+#include <sstream>
+#include "HTTPRequest.hpp"
 
 #define DEVICE_ID 0x08
 
@@ -62,6 +64,25 @@ int main(int argc, char **argv) {
   std::cout << "Latitud: " << latitud << " \n";
   std::cout << "Longitud: " << longitud << " \n";
 
+  std::ostringstream stream;
+  stream << "{\"ambientTemp\": " << termistor << ", 
+              \"motorTemp\": " <<  temperature << ",
+              \"latitude\": " << latitud << ",
+              \"longitude\": " << longitud <<",}";
+
+  try
+  {
+      http::Request request{"localhost:5173/api"};
+      const std::string body = stream.str();
+      const auto response = request.send("POST", body, {
+          {"Content-Type", "application/json"}
+      });
+      std::cout << std::string{response.body.begin(), response.body.end()} << '\n'; // print the result
+  }
+  catch (const std::exception& e) 
+  {
+      std::cerr << "Request failed, error: " << e.what() << '\n';
+  }
   free(i2cArray);
 
   return 0;
