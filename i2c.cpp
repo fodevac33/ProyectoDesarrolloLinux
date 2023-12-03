@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
   try
   {
     std::cout << "Json: " << stream.str() << "\n";
-    http::Request request{"localhost:5173/api"};
+    http::Request request{"http://localhost:5173/api"};
     const std::string body = stream.str();
     const auto response = request.send("POST", body, {
       {"Content-Type", "application/json"}
