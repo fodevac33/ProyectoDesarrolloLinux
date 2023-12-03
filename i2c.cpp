@@ -13,7 +13,7 @@ typedef uint8_t byte;
 void printByteArray(const byte* array, size_t length) {
     for (size_t i = 0; i < length; ++i) {
         std::cout << std::hex << std::nouppercase;
-        std::cout << (array[i] >> 4); .
+        std::cout << (array[i] >> 4); 
         std::cout << (array[i] & 0x0F); 
         std::cout << ' '; 
     }
