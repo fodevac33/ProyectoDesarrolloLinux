@@ -1,9 +1,9 @@
 <script lang="ts">
     import { type TableSource, Table } from "@skeletonlabs/skeleton";
     import { tableMapperValues } from "@skeletonlabs/skeleton";
-    import type { i2cData } from "./types";
+    import type { Data } from "@prisma/client";
 
-    export let sensorData: i2cData;
+    export let sensorData: Data | null;
 
     $: tableData = [
         {position: 1, dato: "Temp Ambiente", valor: sensorData?.ambientTemp ?? 'N/A' },

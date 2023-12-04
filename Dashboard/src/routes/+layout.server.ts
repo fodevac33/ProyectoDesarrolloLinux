@@ -4,5 +4,5 @@ import { fetchLatestReading } from '$lib/primsa';
 export const load = (async () => {
     const data = await fetchLatestReading();
 
-    return { sensorData: data };
+    return { sensorData: data || null };
 }) satisfies LayoutServerLoad;

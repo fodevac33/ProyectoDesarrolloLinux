@@ -5,6 +5,7 @@
   import type { LayoutData } from "./$types";
   import { browser } from "$app/environment";
   import { onMount } from "svelte";
+  import { updateSensorData } from "$lib/util";
 
   export let data: LayoutData;
 
@@ -12,19 +13,9 @@
   let { sensorData } = data; 
   $: console.log(sensorData);
 
-  const updateSensorData = async () => {
-    try {
-      const response = await fetch('/api/latest'); // replace with your actual API endpoint
-      if (response.ok) {
-        const newData = await response.json();
-        sensorData = {...newData}; 
-      } else {
-        throw new Error('Failed to fetch sensor data');
-      }
-    } catch (error) {
-      console.error('Error fetching sensor data:', error);
-    }
-  }
+  const update = async () => {
+	sensorData = await updateSensorData();
+  }	
 
   if (browser) {
     onMount(() => {
