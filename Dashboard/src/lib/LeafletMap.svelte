@@ -2,11 +2,17 @@
   import { onMount, onDestroy } from 'svelte';
   import { browser } from '$app/environment';
   import type { Map, TileLayer, Marker, LatLngExpression } from 'leaflet';
+  import type { Data } from '@prisma/client';
+
+  export let sensorData: Data | null;
 
   let mapElement: HTMLDivElement;
   let map: Map | undefined;
 
-  const center: LatLngExpression= [5.031533638419852,-75.46426814833451];
+  $: center = [
+    sensorData?.latitude,
+    sensorData?.longitude
+  ] as LatLngExpression
 
   onMount(async () => {
     if (browser) {
