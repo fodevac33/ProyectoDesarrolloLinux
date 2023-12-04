@@ -1,24 +1,19 @@
 <script lang="ts">
     import { type TableSource, Table } from "@skeletonlabs/skeleton";
     import { tableMapperValues } from "@skeletonlabs/skeleton";
+    import type { i2cData } from "./types";
 
-    export let ambientTemp;
-    export let motorTemp;
-    export let latitude;
-    export let longitude;
+    export let sensorData: i2cData;
 
-    const tableData = [
-        {position: 1, dato: "Temp Ambiente", valor: ambientTemp },
-        {position: 1, dato: "Temp Motor", valor: motorTemp },
-        {position: 1, dato: "Latitud", valor: latitude},
-        {position: 1, dato: "Longitud", valor: longitude },
-    ]
+    $: tableData = [
+        {position: 1, dato: "Temp Ambiente", valor: sensorData?.ambientTemp ?? 'N/A' },
+        {position: 1, dato: "Temp Motor", valor: sensorData?.motorTemp ?? 'N/A' },
+        {position: 1, dato: "Latitud", valor: sensorData?.latitude ?? 'N/A' },
+        {position: 1, dato: "Longitud", valor: sensorData?.longitude ?? 'N/A' },
+    ];
 
-
-    const tableSimple: TableSource = {
-        // A list of heading labels.
+    $: tableSimple = {
         head: ['Dato', 'Valor'],
-        // The data visibly shown in your table body UI.
         body: tableMapperValues(tableData, ['dato', 'valor']),
     };
                     

@@ -5,11 +5,9 @@
   import type { LayoutData } from "./$types";
   import { browser } from "$app/environment";
   import { onMount } from "svelte";
-  import type { SvelteComponent } from "svelte";
 
   export let data: LayoutData;
 
-  let sideBarComp: SvelteComponent;
 
   let { sensorData } = data; 
   $: console.log(sensorData);
@@ -19,8 +17,7 @@
       const response = await fetch('/api/latest'); // replace with your actual API endpoint
       if (response.ok) {
         const newData = await response.json();
-        sensorData = {...newData}; // Update sensorData with the latest data
-		sideBarComp.$set(sensorData); //
+        sensorData = {...newData}; 
       } else {
         throw new Error('Failed to fetch sensor data');
       }
@@ -31,7 +28,7 @@
 
   if (browser) {
     onMount(() => {
-      const interval = setInterval(updateSensorData, 2000); // Set up polling
+      const interval = setInterval(updateSensorData, 1000); // Set up polling
 
       return () => {
         clearInterval(interval); // Cleanup on component destruction
@@ -46,7 +43,7 @@
 		<AppBar class="h1 font-bold shadow-lg">Dashboard Sistema Asistido</AppBar>
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
-	<SideBar {...sensorData} bind:this={sideBarComp}/>
+	<SideBar  bind:sensorData={sensorData} />
 	</svelte:fragment>
 	<slot />
 </AppShell>
