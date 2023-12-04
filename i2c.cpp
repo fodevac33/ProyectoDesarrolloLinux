@@ -48,7 +48,7 @@ void postI2CData (int *i2cfd) {
   try
   {
     std::cout << "Json: " << stream.str() << "\n";
-    http::Request request{"http://192.168.10.241:3333/api/new"};
+    http::Request request{"http://192.168.132.241:3333/api/new"};
     const std::string body = stream.str();
     const auto response = request.send("POST", body, {
       {"Content-Type", "application/json"}

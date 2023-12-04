@@ -14,6 +14,8 @@
     sensorData?.longitude
   ] as LatLngExpression
 
+  $: console.log(center);
+
   onMount(async () => {
     if (browser) {
       const L = await import('leaflet');
