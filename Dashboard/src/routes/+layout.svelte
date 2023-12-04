@@ -19,7 +19,7 @@
 
   if (browser) {
     onMount(() => {
-      const interval = setInterval(updateSensorData, 1000); // Set up polling
+      const interval = setInterval(update, 1000); // Set up polling
 
       return () => {
         clearInterval(interval); // Cleanup on component destruction
